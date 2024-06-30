@@ -1,0 +1,4 @@
+gql
+line-bot-sdk
+requests
+requests_toolbelt

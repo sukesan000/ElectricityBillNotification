@@ -1,0 +1,11 @@
+version = 0.1
+[default.deploy.parameters]
+stack_name = "octopusEnergyBilling"
+resolve_s3 = true
+s3_prefix = "octopusEnergyBilling"
+region = "ap-northeast-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+disable_rollback = true
+parameter_overrides = "LineChannelAccessToken=\"NGWZQ1AlZnxzBwb8ljrMzSok53+N43tHqksGQr2ctftq/CMXBHeF6htj1c95waCBboK8xkCWRePXSGA+DgrH+K4CNaGvGuR4JBbB/0gIyW91CdphorctlcuLjwJFjqZw5H2j7n5FW9vCIxrG02EFGQdB04t89/1O/w1cDnyilFU=\" LineUserId=\"U98948d0e2060aacbfc5d369e328a96ca\" OctopusEmail=\"serftaan@gmail.com\" OctopusPassword=\"sukesan55\" OctopusAccountNumber=\"A-B62FCF62\""
+image_repositories = []

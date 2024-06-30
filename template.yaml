@@ -1,0 +1,54 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: Electricity Bill Notification Lambda
+
+Globals:
+  Function:
+    Timeout: 180
+    MemorySize: 256
+
+Resources:
+  ElectricityBillNotificationFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./
+      Handler: electricityBillNotification.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - !Ref DependenciesLayer
+      Events:
+        ScheduledFunction:
+          Type: Schedule
+          Properties:
+            Schedule: cron(0 0 L * ? *)
+            Enabled: true
+            Name: TestSchedule
+            Description: test schedule
+      Environment:
+        Variables:
+          LINE_CHANNEL_ACCESS_TOKEN: !Ref LineChannelAccessToken
+          LINE_USER_ID: !Ref LineUserId
+          OCTOPUS_EMAIL: !Ref OctopusEmail
+          OCTOPUS_PASSWORD: !Ref OctopusPassword
+          OCTOPUS_ACCOUNT_NUMBER: !Ref OctopusAccountNumber
+
+  DependenciesLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: electricity-bill-dependencies
+      Description: Dependencies for Electricity Bill Notification
+      ContentUri: layer/
+      CompatibleRuntimes:
+        - python3.11
+
+Parameters:
+  LineChannelAccessToken:
+    Type: String
+  LineUserId:
+    Type: String
+  OctopusEmail:
+    Type: String
+  OctopusPassword:
+    Type: String
+  OctopusAccountNumber:
+    Type: String
